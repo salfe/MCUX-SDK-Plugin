@@ -1,0 +1,142 @@
+{
+	"name": "test",
+	"displayName": "test",
+	"description": "test",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.49.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:mcux_sdk.opendir",
+		"onCommand:mcux_sdk.refresh",
+		"onCommand:mcux_sdk.item.delete",
+		"onCommand:mcux_sdk.item.git_log",
+		"onCommand:mcux_sdk.item.generate_project"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+
+		"customEditors": [
+			{
+			  "viewType": "catEdit.catAll",
+			  "displayName": "Cat All",
+			  "selector": [
+				{
+				  "filenamePattern": "*.*"
+				}
+			  ],
+			  "priority": "default"
+			}
+		  ],
+
+		"commands": [
+			{
+				"command": "mcux_sdk.opendir",
+				"title": "Select SDK folder",
+				"icon": "./icons/vscode-icons/icons/dark/folder-opened.svg" 
+			},
+			{
+				"command": "mcux_sdk.refresh",
+				"title": "Refresh folder",
+				"icon": "./icons/vscode-icons/icons/dark/refresh.svg" 
+			},
+			{
+				"command": "mcux_sdk.item.delete",
+				"title": "delete",
+				"icon": {
+					"light": "images/delete_light.svg",
+					"dark": "images/delete_dark.svg"
+				}
+			},
+			{
+				"command": "mcux_sdk.item.git_log",
+				"title": "show history",
+				"icon": {
+					"light": "images/delete_light.svg",
+					"dark": "images/delete_dark.svg"
+				}
+			},
+			{
+				"command": "mcux_sdk.item.generate_project",
+				"title": "generate project",
+				"icon": {
+					"light": "images/delete_light.svg",
+					"dark": "images/delete_dark.svg"
+				}
+			}
+		],
+
+		"viewsContainers":{
+			"activitybar": [
+				{
+					"id": "mcux",
+					"title": "mcux",
+					"icon": "mcux.svg"
+				}
+			]
+		},
+		"views": {
+			"mcux":[
+				{
+					"id": "mcux_sdk",
+					"name": "SDK"
+				}
+			]
+		},
+
+		"menus": {
+			"view/title": [
+				{
+					"command": "mcux_sdk.opendir",
+					"when": "view == mcux_sdk",
+					"group": "navigation"
+				},
+				{
+				"command": "mcux_sdk.refresh",
+				"when": "view == mcux_sdk",
+				"group": "navigation"
+				}
+			],
+
+			"view/item/context": [
+				{
+					"command": "mcux_sdk.item.delete",
+					"when": "view == mcux_sdk && viewItem == sdkTreeItem"
+				},
+				{
+					"command": "mcux_sdk.item.git_log",
+					"when": "view == mcux_sdk && viewItem == sdkTreeItem"
+				},
+				{
+					"command": "mcux_sdk.item.generate_project",
+					"when": "view == mcux_sdk && viewItem == sdkTreeItem"
+				}
+			]
+		}
+
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint src --ext ts",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.49.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.0",
+		"@types/node": "^14.0.27",
+		"eslint": "^7.6.0",
+		"@typescript-eslint/eslint-plugin": "^3.8.0",
+		"@typescript-eslint/parser": "^3.8.0",
+		"glob": "^7.1.6",
+		"mocha": "^8.1.3",
+		"typescript": "^4.0.2",
+		"vscode-test": "^1.4.0"
+	}
+}
